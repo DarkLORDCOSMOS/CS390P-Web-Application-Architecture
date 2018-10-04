@@ -16,7 +16,7 @@
   <tbody>
     <% @sections.each do |section| %>
       <tr>
-        <td><%= section.course %></td>
+        <td><%= section.course.name %></td>
         <td><%= section.semester %></td>
         <td><%= section.number %></td>
         <td><%= section.room_number %></td>

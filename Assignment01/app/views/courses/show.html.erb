@@ -5,6 +5,12 @@
   <%= @course.name %>
 </p>
 
+<ol>
+  <% @course.sections.each do |section| %>
+    <li> <%= section.name %>
+  <% end %>
+</ol>
+
 <p>
   <strong>Department:</strong>
   <%= @course.department %>
