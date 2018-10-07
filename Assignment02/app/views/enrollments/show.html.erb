@@ -2,12 +2,12 @@
 
 <p>
   <strong>Section:</strong>
-  <%= @enrollment.section %>
+  <%= @enrollment.section.name %>
 </p>
 
 <p>
   <strong>Student:</strong>
-  <%= @enrollment.student %>
+  <%= @enrollment.student.name %>
 </p>
 
 <%= link_to 'Edit', edit_enrollment_path(@enrollment) %> |

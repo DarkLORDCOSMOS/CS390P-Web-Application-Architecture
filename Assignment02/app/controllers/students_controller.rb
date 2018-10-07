@@ -4,7 +4,11 @@ class StudentsController < ApplicationController
   # GET /students
   # GET /students.json
   def index
-    @students = Student.all
+    if params[:query]
+	  @students = Student.where("name like ?", "%#{params[:query]}%")
+	else
+      @students = Student.all
+    end
   end
 
   # GET /students/1

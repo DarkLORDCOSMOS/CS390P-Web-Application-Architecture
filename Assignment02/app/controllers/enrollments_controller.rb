@@ -4,7 +4,11 @@ class EnrollmentsController < ApplicationController
   # GET /enrollments
   # GET /enrollments.json
   def index
-    @enrollments = Enrollment.all
+    if params[:query]
+	  @enrollments = Enrollment.where("name like ?", "%#{params[:query]}%")
+	else
+      @enrollments = Enrollment.all
+    end
   end
 
   # GET /enrollments/1
