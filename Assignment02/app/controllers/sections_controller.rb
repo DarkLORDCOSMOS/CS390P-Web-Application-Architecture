@@ -5,9 +5,11 @@ class SectionsController < ApplicationController
   # GET /sections.json
   def index
     if params[:query]
+	  # @sections = Section.where("name like ?", "%#{params[:query]}%")
 	  @sections = Section.where("name like ?", "%#{params[:query]}%")
 	else
       @sections = Section.all
+	  @courses = Course.all
     end
   end
 
@@ -29,7 +31,8 @@ class SectionsController < ApplicationController
   # POST /sections.json
   def create
     @section = Section.new(section_params)
-
+	@section.name = "#{@section.course.name} #{" - Section "} #{@section.number} #{" - "} #{@section.semester}"
+	
     respond_to do |format|
       if @section.save
         format.html { redirect_to @section, notice: 'Section was successfully created.' }
@@ -73,6 +76,6 @@ class SectionsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def section_params
-      params.require(:section).permit(:course_id, :semester, :number, :room_number)
+      params.require(:section).permit(:course_id, :semester, :number, :room_number, :query)
     end
 end

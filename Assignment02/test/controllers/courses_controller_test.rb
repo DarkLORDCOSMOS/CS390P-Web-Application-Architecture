@@ -10,6 +10,21 @@ class CoursesControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
+  test "should search course" do
+   get :index, params: { query: 'Arc'}
+   expect(response.status).to eq(200)
+   # assert_not_nil assigns(:query)
+   # assert_equal books(:perl_cb).title, assigns(:book).title
+   # assert_valid assigns(:book)
+   # assert_redirected_to :action => 'index'				
+  end
+  
+  test "should do search" do
+    get courses_url
+    assert_response :success
+  end
+
+  
   test "should get new" do
     get new_course_url
     assert_response :success

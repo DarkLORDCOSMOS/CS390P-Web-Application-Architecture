@@ -5,7 +5,7 @@ class CoursesController < ApplicationController
   # GET /courses.json
   def index
     if params[:query]
-	  @courses = course.where("name like ?", "%#{params[:query]}%")
+	  @courses = Course.where("name like ?", "%#{params[:query]}%")
 	else
       @courses = Course.all
     end

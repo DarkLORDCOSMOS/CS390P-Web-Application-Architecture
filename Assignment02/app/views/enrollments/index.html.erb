@@ -20,7 +20,7 @@
   <tbody>
     <% @enrollments.each do |enrollment| %>
       <tr>
-        <td><%= enrollment.section %></td>
+        <td><%= enrollment.section.name %></td>
         <td><%= enrollment.student.name %></td>
         <td><%= link_to 'Show', enrollment %></td>
         <td><%= link_to 'Edit', edit_enrollment_path(enrollment) %></td>

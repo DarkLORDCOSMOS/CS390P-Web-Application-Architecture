@@ -20,5 +20,14 @@
   <%= @section.room_number %>
 </p>
 
+<p>
+  <strong>Students:</strong>
+  <ol>
+  <% @section.students.each do |student| %>
+    <li><%= student.name %></li>
+  <% end %>
+  </ol>
+</p>
+
 <%= link_to 'Edit', edit_section_path(@section) %> |
 <%= link_to 'Back', sections_path %>
