@@ -5,11 +5,9 @@ class SectionsController < ApplicationController
   # GET /sections.json
   def index
     if params[:query]
-	  # @sections = Section.where("name like ?", "%#{params[:query]}%")
-	  @sections = Section.where("name like ?", "%#{params[:query]}%")
+	  @sections = Section.where("name like ?", "%#{params[:query]}%").where("semester like ?", "%#{params[:query]}%")
 	else
       @sections = Section.all
-	  @courses = Course.all
     end
   end
 

@@ -1,7 +1,8 @@
 class Enrollment < ApplicationRecord
   belongs_to :section
   belongs_to :student
-  # def to_s
-  #   "#{course.name} #{" - Section "} #{number} #{" - "} #{semester} #{" - "} #{student.name}"
-  # end
+  validates :section, 	presence: true, 
+						length: { maximum: 50, message: "must be less than 50 characters in length" }
+  validates :student, 	presence: true, 
+						length: { maximum: 50, message: "must be less than 50 characters in length" }
 end

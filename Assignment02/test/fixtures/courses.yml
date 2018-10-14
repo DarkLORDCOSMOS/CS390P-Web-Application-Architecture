@@ -1,13 +1,19 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  name: MyString
-  department: MyString
+  name: Racquetball
+  department: PHY
   number: 1
   credit_hours: 1
 
 two:
-  name: MyString
-  department: MyString
+  name: Blitzball
+  department: PHY
+  number: 1
+  credit_hours: 1
+
+three:
+  name: Vulcan Language & Culture
+  department: VUL
   number: 1
   credit_hours: 1

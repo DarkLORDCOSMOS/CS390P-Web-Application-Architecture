@@ -9,19 +9,25 @@ class CoursesControllerTest < ActionDispatch::IntegrationTest
     get courses_url
     assert_response :success
   end
-
-  test "should search course" do
-   get :index, params: { query: 'Arc'}
-   expect(response.status).to eq(200)
-   # assert_not_nil assigns(:query)
-   # assert_equal books(:perl_cb).title, assigns(:book).title
-   # assert_valid assigns(:book)
-   # assert_redirected_to :action => 'index'				
-  end
   
   test "should do search" do
     get courses_url
     assert_response :success
+  end
+  
+  test "shouldn't find a missing course" do
+    get courses_url
+    assert Course.where("name like ?", "Basketball").length == 0
+  end
+
+  test "should find a created course" do
+    get courses_url
+    assert Course.where("name like ?", "Racquetball").length == 1
+  end
+  
+  test "searches always return 200" do
+    get courses_url, params: { query: "Astrophysics" }
+    assert_equal 200, status
   end
 
   
