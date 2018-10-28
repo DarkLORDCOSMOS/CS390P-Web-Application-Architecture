@@ -2,11 +2,13 @@
 
 <h1>Courses</h1>
 
-<%= form_tag(courses_path, method: :get) do %>
-  <%= label_tag(:query, "Search for:") %>
-  <%= text_field_tag(:query) %>
-  <%= submit_tag("Search") %>
-<% end %>
+<div>
+  <%= form_tag(courses_path, method: :get) do %>
+    <%= label_tag(:query, "Search for:") %>
+    <%= text_field_tag(:query) %>
+    <%= submit_tag("Search") %>
+  <% end %>
+</div>
 
 <table>
   <thead>
@@ -26,7 +28,7 @@
         <td><%= course.department %></td>
         <td><%= course.number %></td>
         <td><%= course.credit_hours %></td>
-        <td><%= link_to 'Show', course %></td>
+        <td padding: 25px><%= link_to 'Show', course %></td>
         <td><%= link_to 'Edit', edit_course_path(course) %></td>
         <td><%= link_to 'Destroy', course, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
@@ -36,4 +38,6 @@
 
 <br>
 
-<%= link_to 'New Course', new_course_path %>
+<div>
+  <%= link_to 'New Course', new_course_path %>
+</div>
