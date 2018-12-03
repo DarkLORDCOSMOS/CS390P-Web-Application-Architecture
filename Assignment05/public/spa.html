@@ -1,0 +1,106 @@
+
+<html>
+<head>
+<title>Assignment 5</title>
+<script
+    src="https://code.jquery.com/jquery-3.3.1.js"
+    integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+    crossorigin="anonymous"></script>
+<style>
+  button, h1, th, td, div { padding-left: 12px}
+</style>
+</head>
+<body>
+
+<button onclick="fetch('students', ['name'])">Students</button>
+<button onclick="fetch('courses', ['name','department','number','credit_hours'])">Courses</button>
+<button onclick="fetch('sections', ['course_id','semester','number','room_number'])">Sections</button>
+<button onclick="fetch('enrollments', ['section_id','student_id'])">Enrollments</button>
+
+<div id="list">
+</div>
+
+<script>
+var fetch = function(which, fields) {
+    $("#list").empty();
+    $.get("http://localhost:3000/" + which + ".json", true)
+    .done(function(json) {
+
+        // sub-page header
+        tmp = which;
+        $("#list").append("<h1>" + tmp.charAt(0).toUpperCase() + tmp.slice(1) + "</h1>");
+
+        // table
+        $("#list").append("<table>");
+
+        // table header
+        head = "<thead>";
+        for (field in fields) {
+            th = (fields[field].charAt(0).toUpperCase() + fields[field].slice(1)).replace("_", " ").replace(" id", "");
+            head += "<th>" + th + "</th>";
+        }
+        head += "</thead>";
+        $("#list").append(head);
+        // end table header
+
+        // table body
+        body = "<tbody>";
+        for (item in json) {
+            row = "<tr>";
+            data = "";
+            for (field in fields) {
+                if (fields[field].includes("_id")) {
+                    console.log("json[item][fields[field]] = ", json[item][fields[field]]);
+                    data += "<td>" + getById(fields[field].replace("_id", "s"), json[item][fields[field]]) + "</td>";
+                }
+                else {
+                  data += "<td>" + json[item][fields[field]] + "</td>";
+                }
+            }
+            row += data + "</tr>";
+            body += row;
+        }
+        body += "</tbody>";
+        $("#list").append(body);
+        // end table body
+
+        $("#list").append("</table>");
+        // end table
+    })
+    .fail(function(json){ console.log("fail"); })
+};
+
+var getById = function(which, id) {
+    var result = null;
+    var value = null;
+    $.get({
+        url: "http://localhost:3000/" + which + ".json",
+        dataType: "json",
+        async : false,
+        success: function(data) { result = data; }
+    });
+    for (cell in result) {
+        if (result[cell].id == id) {
+            var value = result[cell].name;
+            if (which === "sections") {
+                console.log(result[cell]);
+                var tmp = result;
+                var index = cell;
+                var course = getById("courses", result[cell].course_id);
+                result = tmp;
+                cell = index;
+                value = course +
+                        " - " + result[cell].semester +
+                        " - Section " + result[cell].number +
+                        " - Room " + result[cell].room_number;
+            }
+        }
+    }
+    return value;
+};
+
+
+</script>
+
+</body>
+</html>
